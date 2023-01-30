@@ -1,0 +1,49 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  border-bottom: 1px solid #f4f4f4;
+
+  .headerLeft {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 15px;
+      width: 40px;
+      height: 40px;
+    }
+
+    h3 {
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0;
+      text-transform: uppercase;
+      opacity: .5;
+    }
+  }
+
+  .headerRight {
+    list-style-type: none;
+    display: flex;
+
+    li {
+      margin-right: 30px;
+
+      .logoCart {
+        margin-right: 5px;
+        width: 18px;
+        height: 18px
+      }
+
+      .logoProfile {
+        width: 18px;
+        height: 18px
+      }
+    }
+  }
+}
