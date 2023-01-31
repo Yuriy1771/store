@@ -1,7 +1,7 @@
 import classes from './index.module.scss';
 import Header from "./components/header/Header";
 import Content from "./components/content/Content";
-import Drawer from "./components/Drawer/Drawer";
+import Drawer from "./components/drawer/Drawer";
 
 function App(props) {
     return (

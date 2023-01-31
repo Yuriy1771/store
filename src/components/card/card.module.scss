@@ -55,19 +55,13 @@
     //text-align: center;
   }
 
-
-  button {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    background: #fff;
-    border-radius: 8px;
-    border: 1px solid #e5e3e3;
-    box-sizing: border-box;
-
-    img {
+  .plusToCart {
       width: 25px;
       height: 25px;
+      cursor: pointer;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #e5e3e3;
+      box-sizing: border-box;
     }
-  }
 }
