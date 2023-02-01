@@ -1,28 +1,29 @@
 import classes from "./drawer.module.scss";
+import {useState} from "react";
 
 function Drawer(props) {
+
+
     return (
-        <div style={{display: 'none'}} className={classes.overlay}>
+        <div className={classes.overlay}>
             <div className={classes.drawer}>
-                <h2>Cart<img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn}/>
+                <h2>Cart<img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn} onClick={props.onClose}/>
                 </h2>
                 <div className={classes.items}>
-                    <div className={classes.cardItem}>
-                        <img src='/imgs/t-shirts/1.png' alt=""/>
-                        <div className={classes.cardItemInfo}>
-                            <p>T-SHIRT ROUND NECK SS MONSTERS WITH CRYSTALS</p>
-                            <b>3 645 rub.</b>
-                        </div>
-                        <img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn}/>
-                    </div>
-                    <div className={classes.cardItem}>
-                        <img src='/imgs/t-shirts/1.png' alt=""/>
-                        <div className={classes.cartItemInfo}>
-                            <p>T-SHIRT ROUND NECK SS MONSTERS WITH CRYSTALS</p>
-                            <b>3 645 rub.</b>
-                        </div>
-                        <img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn}/>
-                    </div>
+                    {
+                        props.cartItems.map( i => (
+                            <div className={classes.cardItem}>
+                                <img src={i.picture} alt="product"/>
+                                <div className={classes.cardItemInfo}>
+                                    <p>{i.name}</p>
+                                    <b>{i.price} rub.</b>
+                                </div>
+                                <img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn}/>
+                            </div>
+                            ))
+                    }
+
+
                 </div>
                 <div className={classes.cardTotalBlock}>
                     <ul>

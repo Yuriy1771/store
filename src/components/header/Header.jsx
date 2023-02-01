@@ -2,6 +2,7 @@ import React from 'react';
 import classes from "./header.module.scss";
 
 function Header(props) {
+
     return (
         <header>
             <div className={classes.headerLeft}>
@@ -12,7 +13,7 @@ function Header(props) {
                 </div>
             </div>
             <ul className={classes.headerRight}>
-                <li>
+                <li onClick={props.onClickCart}>
                     <img className={classes.logoCart} src='/imgs/header/cart.png'/>
                     <span>3 645 rub.</span></li>
                 <li>

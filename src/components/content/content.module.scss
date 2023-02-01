@@ -1,6 +1,5 @@
 .content {
   padding: 40px;
-
   h1 {
     margin: 0;
     font-family: Inter;
@@ -33,5 +32,6 @@
   }
   .tshirts {
     display: flex;
+    flex-wrap: wrap;
   }
 }

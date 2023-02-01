@@ -1,25 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from "./content.module.scss";
 import Card from "../card/Card";
-
-const cards = [
-    {
-        name: 'T-SHIRT ROUND NECK SS HAWAII',
-        picture: 'https://www.plein.com/on/demandware.static/-/Sites-plein-master-catalog/default/dw2d0acb7c/images/large/SACC-MTK6112-PJY002N_01_sf.jpg',
-        price: '8 865',
-        favorite: false,
-    },
-    {
-        name: 'T-SHIRT ROUND NECK SS MONSTERS WITH CRYSTALS',
-        picture: '/imgs/t-shirts/1.png',
-        price: '6 450',
-        favorite: false,
-    }
-]
+import axios from "axios";
 
 function Content(props) {
 
-    let tShirtCards = cards.map(c => <Card name={c.name} picture={c.picture} price={c.price} favorite={c.favorite}/>)
+    const [items, setItems] = useState([])
+
+    let tShirtCards = items.map(c => <Card cartItems={props.cartItems}  setCartItems={props.setCartItems} name={c.name} picture={c.picture} price={c.price} favorite={c.favorite}/>)
+
+    useEffect(() => {
+        fetch('https://63da27c32af48a60a7c66e9a.mockapi.io/items').then(data => {
+            return data.json()
+        }).then(json => {
+            setItems(json)
+        })
+    },[])
 
     return (
         <div className={classes.content}>
