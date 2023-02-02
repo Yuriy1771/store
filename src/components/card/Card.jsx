@@ -14,7 +14,7 @@ function Card({price,picture,favorite,name, setCartItems, cartItems}) {
         onAddToCart(data)
     }
     const onAddToCart = (data) => {
-       setCartItems([...cartItems, data])
+       setCartItems(prev => [...prev, data])
     }
 
     const onFavorite = () => {
