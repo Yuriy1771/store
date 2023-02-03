@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from "./header.module.scss";
 
 function Header(props) {

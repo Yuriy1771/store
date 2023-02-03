@@ -6,40 +6,43 @@ import {contentAPI} from "../../dall/api";
 
 function Content(props) {
 
-    const [items, setItems] = useState([])
-    const [searchValue, setSearchValue] = useState('')
-    console.log(searchValue)
-    let tShirtCards = items.filter(c => c.name.toLowerCase().includes(searchValue.toLowerCase())).map(c => <Card
+
+    let tShirtCards = props.items.filter(c => c.name.toLowerCase().includes(props.searchValue.toLowerCase())).map(c => <Card
         cartItems={props.cartItems} setCartItems={props.setCartItems}
         name={c.name} picture={c.picture}
         price={c.price} favorite={c.favorite}
-        key={c.id}/>)
+        key={c.id}
+        setFavorites={props.setFavorites}
+        items={c}
+    />)
 
     const onChangeSearchInput = (e) => {
         let text = e.target.value
-        setSearchValue(text)
+        props.setSearchValue(text)
     }
 
     const onClearSearch = () => {
-        setSearchValue('')
+        props.setSearchValue('')
     }
 
     useEffect(() => {
-       contentAPI.getItems().then(data => {
-           setItems(data)
-       })
+            contentAPI.getItems().then(data => {
+                props.setItems(data)
+            })
+
+
         }, []
     )
 
     return (
         <div className={classes.content}>
             <div className={classes.searchBlock}>
-                <h1>{searchValue ? `Search by: ${searchValue}` : 'All t-shirts'}</h1>
+                <h1>{props.searchValue ? `Search by: ${props.searchValue}` : 'All t-shirts'}</h1>
                 <div className={classes.search}>
                     <img src='/imgs/header/search.png' alt="search"/>
-                    {searchValue && <img src='/imgs/drawer/close.svg' alt="clear" className={classes.clearBtn}
+                    {props.searchValue && <img src='/imgs/drawer/close.svg' alt="clear" className={classes.clearBtn}
                                          onClick={onClearSearch}/>}
-                    <input placeholder={'search...'} value={searchValue} onChange={onChangeSearchInput}/>
+                    <input placeholder={'search...'} value={props.searchValue} onChange={onChangeSearchInput}/>
                 </div>
             </div>
             <div className={classes.tshirts}>
