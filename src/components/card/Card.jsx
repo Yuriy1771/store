@@ -2,42 +2,44 @@ import React, {useEffect, useState} from 'react';
 import classes from "./card.module.scss";
 import {cartAPI, favoriteAPI} from "../../dall/api";
 
-function Card({price, picture, favorite, name, setCartItems, setFavorites,items}) {
+function Card(props) {
 
     const [isAdded, setAdded] = useState(false)
-    const [isFavorite, setFavorite] = useState(false)
+    const [isFavorite, setFavorite] = useState(props.favorited)
+    let id = props.id;
 
-    const onClickPlus = (props) => {
+    const onClickPlus = () => {
         setAdded(!isAdded)
-        onPlus({price, picture, favorite, name})
+        onAddToCart({id})
+        // onPlus({price, picture, id, name})
     }
-    const onPlus = (data) => {
-        onAddToCart(data)
-    }
+
     const onAddToCart = (data) => {
         cartAPI.addToCart(data).then(data => data.data)
-        setCartItems(prev => [...prev, data])
+        props.setCartItems(prev => [...prev, data])
+    }
+    const onClickFavorite = () => {
+        onFavorite({id})
     }
 
-    const onFavorite = (items) => {
+    const onFavorite = (data) => {
         setFavorite(!isFavorite)
-        favoriteAPI.favoriteApi(items);
-        setFavorites((prev) => [...prev, items])
+        favoriteAPI.favoriteApi(data);
+        props.setFavorites((prev) => [...prev, props.items])
     }
-
     return (
 
         <div className={classes.card}>
             <img src={isFavorite ? '/imgs/productBlock/heart-liked.svg' : '/imgs/productBlock/heart-unliked.svg'}
-                 alt="unliked" className={classes.favorite} onClick={() => onFavorite(items)}/>
+                 alt="unliked" className={classes.favorite} onClick={onClickFavorite}/>
             <div className={classes.tShirts}>
-                <img src={picture} alt="product"/>
+                <img src={props.picture} alt="product"/>
             </div>
-            <h5>{name}</h5>
+            <h5>{props.name}</h5>
             <div className={classes.cardBottom}>
                 <div className={classes.priceProduct}>
                     <span>Price:</span>
-                    <b>{price} rub.</b>
+                    <b>{props.price} rub.</b>
                 </div>
                 <img src={isAdded ? '/imgs/productBlock/check-mark.svg' : '/imgs/productBlock/plus.svg'} alt="plus"
                      className={classes.plusToCart}

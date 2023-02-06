@@ -3,7 +3,8 @@ import Header from "./components/header/Header";
 import Content from "./components/content/Content";
 import Drawer from "./components/drawer/Drawer";
 import {useState} from "react";
-import {favoriteAPI} from "./dall/api";
+import {Route, Routes} from "react-router-dom";
+import Favorite from "./pages/Favorite";
 
 function App(props) {
     const [items, setItems] = useState([])
@@ -12,10 +13,6 @@ function App(props) {
     const [cartItems, setCartItems] = useState([])
     const [favorites, setFavorites] = useState([]);
 
-   // const onFavorite = (data) => {
-   //     favoriteAPI.favoriteApi(data);
-   //     setFavorites((prev) => [...prev, data])
-   //  }
     return (
         <div className={classes.wrapper}>
             <div>
@@ -27,15 +24,21 @@ function App(props) {
                 <Header onClickCart={() => setCartOpened(true)}/>
             </div>
             <div>
-                <Content
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                    setItems={setItems}
-                    items={items}
-                    setCartItems={setCartItems}
-                    cartItems={cartItems}
-                    setFavorites={setFavorites}
-                />
+                <Routes>
+                    <Route path={'/'} element={<Content
+                        searchValue={searchValue}
+                        setSearchValue={setSearchValue}
+                        setItems={setItems}
+                        items={items}
+                        setCartItems={setCartItems}
+                        cartItems={cartItems}
+                        setFavorites={setFavorites}
+                    />}/>
+                    <Route path={'/favorite'} element={<Favorite
+                        setItems={setItems}
+                        items={items}
+                    />}/>
+                </Routes>
             </div>
         </div>
     );

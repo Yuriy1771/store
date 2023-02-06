@@ -11,7 +11,7 @@ function Content(props) {
         cartItems={props.cartItems} setCartItems={props.setCartItems}
         name={c.name} picture={c.picture}
         price={c.price} favorite={c.favorite}
-        key={c.id}
+        key={c.id} id={c.id}
         setFavorites={props.setFavorites}
         items={c}
     />)
