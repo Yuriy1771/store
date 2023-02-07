@@ -11,8 +11,9 @@ function Drawer(props) {
     }, [])
 
     const deleteProductFromCart = (id) => {
-        cartAPI.deleteToCart(id).then(data => data.data)
-        props.setCartItems((prev) => prev.filter(item => item.id !== id))
+        cartAPI.deleteFromCart(id).then(data => data.data)
+        debugger
+        props.setCartItems((prev) => prev.filter(i => i.id !== id))
     }
     return (
         <div className={classes.overlay}>

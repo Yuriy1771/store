@@ -2,14 +2,13 @@ import React, {useEffect, useState} from 'react';
 import classes from "./card.module.scss";
 import {cartAPI, favoriteAPI} from "../../dall/api";
 
-function Card({price, picture, favorite, name, setCartItems, setFavorites,items}) {
+function Card({price, picture, id, favorite, name, setCartItems, setFavorites,items}) {
 
     const [isAdded, setAdded] = useState(false)
     const [isFavorite, setFavorite] = useState(false)
-
     const onClickPlus = (props) => {
         setAdded(!isAdded)
-        onPlus({price, picture, favorite, name})
+        onPlus({id})
     }
     const onPlus = (data) => {
         onAddToCart(data)

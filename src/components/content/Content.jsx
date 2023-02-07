@@ -14,6 +14,7 @@ function Content(props) {
         key={c.id}
         setFavorites={props.setFavorites}
         items={c}
+        id={c.id}
     />)
 
     const onChangeSearchInput = (e) => {
