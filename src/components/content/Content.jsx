@@ -15,6 +15,7 @@ function Content(props) {
         setFavorites={props.setFavorites}
         items={c}
         id={c.id}
+        onAddToCart={props.onAddToCart}
     />)
 
     const onChangeSearchInput = (e) => {
@@ -26,14 +27,6 @@ function Content(props) {
         props.setSearchValue('')
     }
 
-    useEffect(() => {
-            contentAPI.getItems().then(data => {
-                props.setItems(data)
-            })
-
-
-        }, []
-    )
 
     return (
         <div className={classes.content}>

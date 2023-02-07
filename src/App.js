@@ -2,26 +2,48 @@ import classes from './index.module.scss';
 import Header from "./components/header/Header";
 import Content from "./components/content/Content";
 import Drawer from "./components/drawer/Drawer";
-import {useState} from "react";
-import {favoriteAPI} from "./dall/api";
+import {useEffect, useState} from "react";
+import {cartAPI, contentAPI, favoriteAPI} from "./dall/api";
 
 function App(props) {
     const [items, setItems] = useState([])
-    const [searchValue, setSearchValue] = useState('')
-    const [cartOpened, setCartOpened] = useState(false)
     const [cartItems, setCartItems] = useState([])
+    const [cartOpened, setCartOpened] = useState(false)
+    const [searchValue, setSearchValue] = useState('')
     const [favorites, setFavorites] = useState([]);
 
    // const onFavorite = (data) => {
    //     favoriteAPI.favoriteApi(data);
    //     setFavorites((prev) => [...prev, data])
    //  }
+
+    useEffect(() => {
+        contentAPI.getItems().then(data => {
+            setItems(data)
+        })
+        cartAPI.getToCart().then(data => {
+            setCartItems(data)
+        })
+    },[])
+
+    const onAddToCart = (id, items) => {
+        cartAPI.addToCart(id);
+        console.log(id)
+        console.log(items)
+        setCartItems((prev) => [...prev, items])
+    }
+
+    const deleteProductFromCart = (id) => {
+        cartAPI.deleteFromCart(id).then(data => data.data)
+        setCartItems((prev) => prev.filter(i => i.id !== id))
+    }
+
     return (
         <div className={classes.wrapper}>
             <div>
-                {cartOpened ? <Drawer items={items} cartItems={cartItems}
-                                      setCartItems={setCartItems}
-                                      onClose={() => setCartOpened(false)}/> : null}
+                {cartOpened ? <Drawer cartItems={cartItems}
+                                      onClose={() => setCartOpened(false)}
+                                      deleteProductFromCart={deleteProductFromCart}/> : null}
             </div>
             <div>
                 <Header onClickCart={() => setCartOpened(true)}/>
@@ -35,6 +57,7 @@ function App(props) {
                     setCartItems={setCartItems}
                     cartItems={cartItems}
                     setFavorites={setFavorites}
+                    onAddToCart={onAddToCart}
                 />
             </div>
         </div>

@@ -1,20 +1,7 @@
 import classes from "./drawer.module.scss";
-import {useEffect, useState} from "react";
-import {cartAPI} from "../../dall/api";
 
 function Drawer(props) {
-    useEffect(() => {
-        cartAPI.getToCart().then(data => {
-            props.setCartItems(data)
-        })
 
-    }, [])
-
-    const deleteProductFromCart = (id) => {
-        cartAPI.deleteFromCart(id).then(data => data.data)
-        debugger
-        props.setCartItems((prev) => prev.filter(i => i.id !== id))
-    }
     return (
         <div className={classes.overlay}>
             <div className={classes.drawer}>
@@ -34,7 +21,7 @@ function Drawer(props) {
                                                 <b>{i.price} rub.</b>
                                             </div>
                                             <img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn}
-                                                 onClick={() => deleteProductFromCart(i.id)}/>
+                                                 onClick={() => props.deleteProductFromCart(i.id)}/>
                                         </div>
                                     ))
                                 }
