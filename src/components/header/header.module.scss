@@ -9,11 +9,6 @@ header {
     display: flex;
     align-items: center;
 
-    a {
-      text-decoration: none;
-      color: black;
-    }
-
     img {
       margin-right: 15px;
       width: 40px;
@@ -44,12 +39,6 @@ header {
         margin-right: 5px;
         width: 18px;
         height: 18px;
-      }
-
-      .logoFavorite {
-        width: 18px;
-        height: 18px;
-        cursor: pointer;
       }
 
       .logoProfile {
