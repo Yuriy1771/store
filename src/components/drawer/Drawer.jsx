@@ -3,17 +3,17 @@ import {useEffect, useState} from "react";
 import {cartAPI} from "../../dall/api";
 
 function Drawer(props) {
-    useEffect(() => {
-        cartAPI.getToCart().then(data => {
-            props.setCartItems(data)
-        })
+    // useEffect(() => {
+    //     cartAPI.getToCart().then(data => {
+    //         props.setCartItems(data)
+    //     })
+    //
+    // }, [])
 
-    }, [])
-
-    const deleteProductFromCart = (id) => {
-        cartAPI.deleteToCart(id).then(data => data.data)
-        props.setCartItems((prev) => prev.filter(item => item.id !== id))
-    }
+    // const deleteProductFromCart = (id) => {
+    //     cartAPI.deleteFromCart(id).then(data => data.data)
+    //     props.setCartItems((prev) => prev.filter(item => item.id !== id))
+    // }
     return (
         <div className={classes.overlay}>
             <div className={classes.drawer}>
@@ -33,7 +33,8 @@ function Drawer(props) {
                                                 <b>{i.price} rub.</b>
                                             </div>
                                             <img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn}
-                                                 onClick={() => deleteProductFromCart(i.id)}/>
+                                                 onClick={() => props.deleteProductFromCart(i.id)}/>
+
                                         </div>
                                     ))
                                 }

@@ -7,32 +7,32 @@ import {contentAPI} from "../../dall/api";
 function Content(props) {
 
 
-    let tShirtCards = props.items.filter(c => c.name.toLowerCase().includes(props.searchValue.toLowerCase())).map(c => <Card
+    let tShirtCards = props.items.map(c => <Card
         cartItems={props.cartItems} setCartItems={props.setCartItems}
         name={c.name} picture={c.picture}
         price={c.price} favorite={c.favorite}
         key={c.id} id={c.id}
         setFavorites={props.setFavorites}
-        items={c}
+        onAddToCart={props.onAddToCart}
     />)
 
-    const onChangeSearchInput = (e) => {
-        let text = e.target.value
-        props.setSearchValue(text)
-    }
+    // const onChangeSearchInput = (e) => {
+    //     let text = e.target.value
+    //     props.setSearchValue(text)
+    // }
 
-    const onClearSearch = () => {
-        props.setSearchValue('')
-    }
+    // const onClearSearch = () => {
+    //     props.setSearchValue('')
+    // }
 
-    useEffect(() => {
-            contentAPI.getItems().then(data => {
-                props.setItems(data)
-            })
-
-
-        }, []
-    )
+    // useEffect(() => {
+    //         contentAPI.getItems().then(data => {
+    //             props.setItems(data)
+    //         })
+    //
+    //
+    //     }, []
+    // )
 
     return (
         <div className={classes.content}>
@@ -41,8 +41,8 @@ function Content(props) {
                 <div className={classes.search}>
                     <img src='/imgs/header/search.png' alt="search"/>
                     {props.searchValue && <img src='/imgs/drawer/close.svg' alt="clear" className={classes.clearBtn}
-                                         onClick={onClearSearch}/>}
-                    <input placeholder={'search...'} value={props.searchValue} onChange={onChangeSearchInput}/>
+                                         onClick={props.onClearSearch}/>}
+                    <input placeholder={'search...'} value={props.searchValue} onChange={props.onChangeSearchInput}/>
                 </div>
             </div>
             <div className={classes.tshirts}>

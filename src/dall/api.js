@@ -22,7 +22,7 @@ export const cartAPI = {
     getToCart() {
         return instance.get(`cart`).then(data => data.data)
     },
-    deleteToCart(id){
+    deleteFromCart(id){
         return instance.delete(`cart/${id}`)
     }
 }
@@ -33,5 +33,8 @@ export const favoriteAPI = {
     },
     getFavorites() {
         return instance.get('favorite').then(data => data.data)
+    },
+    deleteFromFavorite(data) {
+        return instance.delete('favorite', data).then(data => data.data)
     }
 }

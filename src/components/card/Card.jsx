@@ -7,31 +7,33 @@ function Card(props) {
     const [isAdded, setAdded] = useState(false)
     const [isFavorite, setFavorite] = useState(props.favorited)
     let id = props.id;
+    let items = props.items;
 
     const onClickPlus = () => {
         setAdded(!isAdded)
-        onAddToCart({id})
+        props.onAddToCart({id})
         // onPlus({price, picture, id, name})
     }
 
-    const onAddToCart = (data) => {
-        cartAPI.addToCart(data).then(data => data.data)
-        props.setCartItems(prev => [...prev, data])
-    }
-    const onClickFavorite = () => {
-        onFavorite({id})
-    }
-
-    const onFavorite = (data) => {
+    const onClickFavorite = (items) => {
         setFavorite(!isFavorite)
-        favoriteAPI.favoriteApi(data);
-        props.setFavorites((prev) => [...prev, props.items])
+        props.onAddFavorite({items})
     }
+    // const onAddToCart = (data) => {
+    //     cartAPI.addToCart(data).then(data => data.data)
+    //     props.setCartItems(prev => [...prev, data])
+    // }
+
+    // const onAddFavorite = (data) => {
+    //     setFavorite(!isFavorite)
+    //     favoriteAPI.favoriteApi(data);
+    //     props.setFavorites((prev) => [...prev, props.items])
+    // }
     return (
 
         <div className={classes.card}>
             <img src={isFavorite ? '/imgs/productBlock/heart-liked.svg' : '/imgs/productBlock/heart-unliked.svg'}
-                 alt="unliked" className={classes.favorite} onClick={onClickFavorite}/>
+                 alt="unliked" className={classes.favorite} onClick={()=> onClickFavorite(items)}/>
             <div className={classes.tShirts}>
                 <img src={props.picture} alt="product"/>
             </div>
