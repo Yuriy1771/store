@@ -4,18 +4,14 @@ import Content from "./components/content/Content";
 import Drawer from "./components/drawer/Drawer";
 import {useEffect, useState} from "react";
 import {cartAPI, contentAPI, favoriteAPI} from "./dall/api";
+import {Route, Routes} from "react-router-dom";
+import Favorite from "./components/favorite/Favorite";
 
 function App(props) {
     const [items, setItems] = useState([])
     const [cartItems, setCartItems] = useState([])
     const [cartOpened, setCartOpened] = useState(false)
-    const [searchValue, setSearchValue] = useState('')
     const [favorites, setFavorites] = useState([]);
-
-   // const onFavorite = (data) => {
-   //     favoriteAPI.favoriteApi(data);
-   //     setFavorites((prev) => [...prev, data])
-   //  }
 
     useEffect(() => {
         contentAPI.getItems().then(data => {
@@ -24,18 +20,24 @@ function App(props) {
         cartAPI.getToCart().then(data => {
             setCartItems(data)
         })
-    },[])
+        favoriteAPI.getFavorite().then(data => {
+            setFavorites(data);
+        })
+    }, [])
 
     const onAddToCart = (id, items) => {
         cartAPI.addToCart(id);
-        console.log(id)
-        console.log(items)
         setCartItems((prev) => [...prev, items])
     }
 
     const deleteProductFromCart = (id) => {
         cartAPI.deleteFromCart(id).then(data => data.data)
         setCartItems((prev) => prev.filter(i => i.id !== id))
+    }
+
+    const onAddToFavorite = (id,items) => {
+        favoriteAPI.addFavorite({id});
+        setFavorites((prev) => [...prev, items])
     }
 
     return (
@@ -48,18 +50,16 @@ function App(props) {
             <div>
                 <Header onClickCart={() => setCartOpened(true)}/>
             </div>
-            <div>
-                <Content
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                    setItems={setItems}
-                    items={items}
-                    setCartItems={setCartItems}
-                    cartItems={cartItems}
-                    setFavorites={setFavorites}
-                    onAddToCart={onAddToCart}
-                />
-            </div>
+            <Routes>
+                <Route path={'/'} element={<Content setItems={setItems} items={items}
+                                                    setCartItems={setCartItems}
+                                                    cartItems={cartItems}
+                                                    setFavorites={setFavorites}
+                                                    onAddToCart={onAddToCart}
+                                                    onAddToFavorite={onAddToFavorite}
+                />}/>
+                <Route path={'/favorites'} element={<Favorite favorites={favorites}/>}/>
+            </Routes>
         </div>
     );
 }

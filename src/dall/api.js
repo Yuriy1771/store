@@ -24,7 +24,10 @@ export const cartAPI = {
 }
 
 export const favoriteAPI = {
-    favoriteApi(data) {
-        return instance('favorites',data).then(data => data.data)
+    addFavorite(id) {
+        return instance.post('favorite',id).then(data => data.data)
+    },
+    getFavorite() {
+        return instance.get('favorite').then(data => data.data)
     }
 }
