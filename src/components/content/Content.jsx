@@ -8,8 +8,7 @@ function Content(props) {
 
     let tShirtCards = props.items.filter(c => c.name.toLowerCase().includes(searchValue.toLowerCase())).map(c => <Card
         cartItems={props.cartItems} setCartItems={props.setCartItems}
-        name={c.name} picture={c.picture}
-        price={c.price} favorite={c.favorite}
+        favorite={c.favorite}
         key={c.id}
         setFavorites={props.setFavorites}
         items={c}

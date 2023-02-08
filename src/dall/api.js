@@ -29,5 +29,8 @@ export const favoriteAPI = {
     },
     getFavorite() {
         return instance.get('favorite').then(data => data.data)
+    },
+    deleteFavorite(id) {
+        return instance.delete(`favorite/${id}`).then(data => data.data)
     }
 }

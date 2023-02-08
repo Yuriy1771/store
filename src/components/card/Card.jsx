@@ -7,7 +7,7 @@ function Card(props) {
     let items = props.items
 
     const [isAdded, setAdded] = useState(false)
-    const [isFavorite, setFavorite] = useState(false)
+    const [isFavorite, setFavorite] = useState(props.favorited)
 
     const onClickPlus = (id, items) => {
         setAdded(!isAdded)
@@ -18,7 +18,7 @@ function Card(props) {
     }
 
 
-    const onFavorite = (id,items) => {
+    const onClickFavorite = (id,items) => {
         setFavorite(!isFavorite)
         props.onAddToFavorite(id,items)
     }
@@ -27,15 +27,15 @@ function Card(props) {
 
         <div className={classes.card}>
             <img src={isFavorite ? '/imgs/productBlock/heart-liked.svg' : '/imgs/productBlock/heart-unliked.svg'}
-                 alt="unliked" className={classes.favorite} onClick={() => onFavorite(id,items)}/>
+                 alt="unliked" className={classes.favorite} onClick={() => onClickFavorite(id,items)}/>
             <div className={classes.tShirts}>
-                <img src={props.picture} alt="product"/>
+                <img src={props.items.picture} alt="product"/>
             </div>
-            <h5>{props.name}</h5>
+            <h5>{props.items.name}</h5>
             <div className={classes.cardBottom}>
                 <div className={classes.priceProduct}>
                     <span>Price:</span>
-                    <b>{props.price} rub.</b>
+                    <b>{props.items.price} rub.</b>
                 </div>
                 <img src={isAdded ? '/imgs/productBlock/check-mark.svg' : '/imgs/productBlock/plus.svg'} alt="plus"
                      className={classes.plusToCart}

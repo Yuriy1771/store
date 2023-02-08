@@ -21,7 +21,7 @@ function Drawer(props) {
                                                 <b>{i.price} rub.</b>
                                             </div>
                                             <img src='/imgs/drawer/close.svg' alt="close" className={classes.closeBtn}
-                                                 onClick={() => props.deleteProductFromCart(i.id)}/>
+                                                 onClick={() => props.deleteProductFromCart(i)}/>
                                         </div>
                                     ))
                                 }

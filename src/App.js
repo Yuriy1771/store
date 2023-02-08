@@ -30,14 +30,19 @@ function App(props) {
         setCartItems((prev) => [...prev, items])
     }
 
-    const deleteProductFromCart = (id) => {
-        cartAPI.deleteFromCart(id).then(data => data.data)
-        setCartItems((prev) => prev.filter(i => i.id !== id))
+    const deleteProductFromCart = (item) => {
+        cartAPI.deleteFromCart(item.id).then(data => data.data)
+        setCartItems((prev) => prev.filter(i => i.id !== item))
     }
 
-    const onAddToFavorite = (id,items) => {
-        favoriteAPI.addFavorite({id});
-        setFavorites((prev) => [...prev, items])
+    const onAddToFavorite = (id, items) => {
+        if (favorites.find(favItems => favItems.id === id)) {
+            favoriteAPI.deleteFavorite(id).then(data => data.data)
+            setFavorites((prev) => prev.filter((favItems) => favItems.id !== id))
+        } else {
+            favoriteAPI.addFavorite({id});
+            setFavorites((prev) => prev.filter(favItems => favItems.id !== id))
+        }
     }
 
     return (
@@ -58,7 +63,8 @@ function App(props) {
                                                     onAddToCart={onAddToCart}
                                                     onAddToFavorite={onAddToFavorite}
                 />}/>
-                <Route path={'/favorites'} element={<Favorite favorites={favorites}/>}/>
+                <Route path={'/favorites'}
+                       element={<Favorite favorites={favorites} onAddToFavorite={onAddToFavorite}/>}/>
             </Routes>
         </div>
     );
