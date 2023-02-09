@@ -25,9 +25,16 @@ function App(props) {
         })
     }, [])
 
-    const onAddToCart = (id, items) => {
-        cartAPI.addToCart(id);
-        setCartItems((prev) => [...prev, items])
+    const onAddToCart = (item) => {
+        if(cartItems.find((carItem) => carItem.id === item.id)) {
+            cartAPI.deleteFromCart(item.id).then(data => data.data)
+            setCartItems((prev) => prev.filter((favItem) => favItem.id !== item.id))
+
+        } else {
+            cartAPI.addToCart(item.id);
+            setCartItems((prev) => [...prev, item])
+        }
+
     }
 // сравнить удаление твоара из избронного и из корзины и найти ошибку
     const deleteProductFromCart = (item) => {
@@ -35,14 +42,14 @@ function App(props) {
         setCartItems((prev) => prev.filter(i => i !== item))
     }
 
-    const onAddToFavorite = (id, items) => {
-        if (favorites.find(favItems => favItems.id === id)) {
-            favoriteAPI.deleteFavorite(id).then(data => data.data)
-            setFavorites((prev) => prev.filter((favItems) => favItems.id !== id))
+    const onAddToFavorite = (item) => {
+        if (favorites.find(favItem => favItem.id === item.id)) {
+            favoriteAPI.deleteFavorite(item.id).then(data => data.data)
+            setFavorites((prev) => prev.filter((favItem) => favItem.id !== item.id))
         } else {
-            favoriteAPI.addFavorite({id});
-            setFavorites((prev) => prev.filter(favItems => favItems.id !== id))
-            setFavorites((prev) => [...prev, items])
+            favoriteAPI.addFavorite(item.id);
+            setFavorites((prev) => prev.filter(favItem => favItem.id !== item.id))
+            setFavorites((prev) => [...prev, item])
         }
     }
 

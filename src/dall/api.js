@@ -12,11 +12,11 @@ export const contentAPI = {
 }
 
 export const cartAPI = {
-    addToCart(data) {
-        return instance.post(`cart`,data).then(data => data.data)
-    },
     getToCart() {
         return instance.get(`cart`).then(data => data.data)
+    },
+    addToCart(id) {
+        return instance.post(`cart`,{id}).then(data => data.data)
     },
     deleteFromCart(id){
         return instance.delete(`cart/${id}`)
@@ -25,7 +25,7 @@ export const cartAPI = {
 
 export const favoriteAPI = {
     addFavorite(id) {
-        return instance.post('favorite',id).then(data => data.data)
+        return instance.post('favorite', {id}).then(data => data.data)
     },
     getFavorite() {
         return instance.get('favorite').then(data => data.data)

@@ -4,30 +4,30 @@ import {cartAPI, favoriteAPI} from "../../dall/api";
 
 function Card(props) {
     let id = props.id
-    let items = props.items
+    let item = props.items
 
     const [isAdded, setAdded] = useState(false)
     const [isFavorite, setFavorite] = useState(props.favorited)
 
-    const onClickPlus = (id, items) => {
+    const onClickPlus = (item) => {
         setAdded(!isAdded)
-        onPlus({id}, items)
+        onPlus(item)
     }
-    const onPlus = (id, items) => {
-        props.onAddToCart(id, items)
+    const onPlus = (item) => {
+        props.onAddToCart( item)
     }
 
 
-    const onClickFavorite = (id,items) => {
+    const onClickFavorite = (item) => {
         setFavorite(!isFavorite)
-        props.onAddToFavorite(id,items)
+        props.onAddToFavorite(item)
     }
 
     return (
 
         <div className={classes.card}>
             <img src={isFavorite ? '/imgs/productBlock/heart-liked.svg' : '/imgs/productBlock/heart-unliked.svg'}
-                 alt="unliked" className={classes.favorite} onClick={() => onClickFavorite(id,items)}/>
+                 alt="unliked" className={classes.favorite} onClick={() => onClickFavorite(item)}/>
             <div className={classes.tShirts}>
                 <img src={props.items.picture} alt="product"/>
             </div>
@@ -39,7 +39,7 @@ function Card(props) {
                 </div>
                 <img src={isAdded ? '/imgs/productBlock/check-mark.svg' : '/imgs/productBlock/plus.svg'} alt="plus"
                      className={classes.plusToCart}
-                     onClick={() => onClickPlus(id, items)}/>
+                     onClick={() => onClickPlus(item)}/>
             </div>
         </div>
     )
