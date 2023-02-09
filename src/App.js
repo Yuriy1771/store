@@ -29,10 +29,10 @@ function App(props) {
         cartAPI.addToCart(id);
         setCartItems((prev) => [...prev, items])
     }
-
+// сравнить удаление твоара из избронного и из корзины и найти ошибку
     const deleteProductFromCart = (item) => {
         cartAPI.deleteFromCart(item.id).then(data => data.data)
-        setCartItems((prev) => prev.filter(i => i.id !== item))
+        setCartItems((prev) => prev.filter(i => i !== item))
     }
 
     const onAddToFavorite = (id, items) => {
@@ -42,6 +42,7 @@ function App(props) {
         } else {
             favoriteAPI.addFavorite({id});
             setFavorites((prev) => prev.filter(favItems => favItems.id !== id))
+            setFavorites((prev) => [...prev, items])
         }
     }
 
