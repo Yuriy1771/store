@@ -14,29 +14,30 @@ function App(props) {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        contentAPI.getItems().then(data => {
-            setItems(data)
-        })
-        cartAPI.getToCart().then(data => {
-            setCartItems(data)
-        })
-        favoriteAPI.getFavorite().then(data => {
-            setFavorites(data);
-        })
+        async function fetchData() {
+            debugger
+            const cartResponse = await cartAPI.getToCart()
+            const favoriteResponse = await favoriteAPI.getFavorite()
+            const itemsResponse = await contentAPI.getItems()
+
+            setCartItems(cartResponse)
+            setFavorites(favoriteResponse)
+            setItems(itemsResponse)
+        }
+        fetchData()
     }, [])
 
     const onAddToCart = (item) => {
-        if(cartItems.find((carItem) => carItem.id === item.id)) {
+        if (cartItems.find((carItem) => carItem.id === item.id)) {
             cartAPI.deleteFromCart(item.id).then(data => data.data)
             setCartItems((prev) => prev.filter((favItem) => favItem.id !== item.id))
-
         } else {
             cartAPI.addToCart(item.id);
             setCartItems((prev) => [...prev, item])
         }
 
     }
-// сравнить удаление твоара из избронного и из корзины и найти ошибку
+
     const deleteProductFromCart = (item) => {
         cartAPI.deleteFromCart(item.id).then(data => data.data)
         setCartItems((prev) => prev.filter(i => i !== item))

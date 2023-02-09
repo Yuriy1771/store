@@ -8,13 +8,11 @@ function Content(props) {
 
     let tShirtCards = props.items.filter(c => c.name.toLowerCase().includes(searchValue.toLowerCase())).map(c => <Card
         cartItems={props.cartItems} setCartItems={props.setCartItems}
-        favorite={c.favorite}
-        key={c.id}
-        setFavorites={props.setFavorites}
-        items={c}
-        id={c.id}
-        onAddToCart={props.onAddToCart}
+        favorite={c.favorite} key={c.id}
+        setFavorites={props.setFavorites} items={c}
+        id={c.id} onAddToCart={props.onAddToCart}
         onAddToFavorite={props.onAddToFavorite}
+        isAdded={props.cartItems.some((item) => item.id === c.id)}
     />)
 
     const onChangeSearchInput = (e) => {
