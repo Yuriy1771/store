@@ -13,6 +13,7 @@ function Content(props) {
         id={c.id} onAddToCart={props.onAddToCart}
         onAddToFavorite={props.onAddToFavorite}
         isAdded={props.cartItems.some((item) => item.id === c.id)}
+        isLoading={false}
     />)
 
     const onChangeSearchInput = (e) => {

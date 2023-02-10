@@ -1,4 +1,6 @@
 import axios from "axios";
+import classes from "../components/card/card.module.scss";
+import React from "react";
 
 const instance = axios.create({
     baseURL: 'http://localhost:8080/api/',
@@ -22,7 +24,22 @@ export const cartAPI = {
         return instance.delete(`cart/${id}`)
     }
 }
-
+// <div className={classes.card}>
+//     <img src={isFavorite ? '/imgs/productBlock/heart-liked.svg' : '/imgs/productBlock/heart-unliked.svg'}
+//          alt="unliked" className={classes.favorite} onClick={() => onClickFavorite(item)}/>
+//     <div className={classes.tShirts}>
+//         <img src={props.items.picture} alt="product"/>
+//     </div>
+//     <h5>{props.items.name}</h5>
+//     <div className={classes.cardBottom}>
+//         <div className={classes.priceProduct}>
+//             <span>Price:</span>
+//             <b>{props.items.price} rub.</b>
+//         </div>
+//         <img src={isAdded ? '/imgs/productBlock/check-mark.svg' : '/imgs/productBlock/plus.svg'} alt="plus"
+//              className={classes.plusToCart}
+//              onClick={() => onClickPlus(item)}/>
+//     </div>
 export const favoriteAPI = {
     addFavorite(id) {
         return instance.post('favorite', {id}).then(data => data.data)
