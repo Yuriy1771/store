@@ -8,22 +8,29 @@ import {Route, Routes} from "react-router-dom";
 import Favorite from "./components/favorite/Favorite";
 
 function App(props) {
-    const [items, setItems] = useState([])
+
+    let arrayForSkeleton = [
+        {name: ''},{name: ''},{name: ''},{name: ''},{name: ''},{name: ''},{name: ''},{name: ''}
+    ]
+    const [items, setItems] = useState(arrayForSkeleton)
     const [cartItems, setCartItems] = useState([])
     const [cartOpened, setCartOpened] = useState(false)
-    const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
-            debugger
             const cartResponse = await cartAPI.getToCart()
             const favoriteResponse = await favoriteAPI.getFavorite()
             const itemsResponse = await contentAPI.getItems()
+
+            setIsLoading(false)
 
             setCartItems(cartResponse)
             setFavorites(favoriteResponse)
             setItems(itemsResponse)
         }
+
         fetchData()
     }, [])
 
@@ -71,6 +78,7 @@ function App(props) {
                                                     setFavorites={setFavorites}
                                                     onAddToCart={onAddToCart}
                                                     onAddToFavorite={onAddToFavorite}
+                                                    isLoading={isLoading}
                 />}/>
                 <Route path={'/favorites'}
                        element={<Favorite favorites={favorites} onAddToFavorite={onAddToFavorite}/>}/>

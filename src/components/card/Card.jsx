@@ -6,7 +6,6 @@ import {cartAPI, favoriteAPI} from "../../dall/api";
 function Card(props) {
     let id = props.id
     let item = props.items
-
     const [isAdded, setAdded] = useState(props.isAdded)
     const [isFavorite, setFavorite] = useState(props.favorited)
 
