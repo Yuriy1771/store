@@ -1,10 +1,12 @@
 import classes from "../content/content.module.scss";
-import React from "react";
+import React, {useContext} from "react";
 import Card from "../card/Card";
+import AppContext from "../../dall/context";
 
 function Favorite(props) {
-
-    let favorites = props.favorites.map(f => <Card favorited={true} key={f.id} onAddToFavorite={props.onAddToFavorite}
+    const state = useContext(AppContext)
+    
+    let favorites = state.favorites.map(f => <Card favorited={true} key={f.id} onAddToFavorite={props.onAddToFavorite}
                                                    id={f.id} items={f}/>)
 
     return (

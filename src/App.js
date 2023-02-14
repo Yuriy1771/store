@@ -2,15 +2,17 @@ import classes from './index.module.scss';
 import Header from "./components/header/Header";
 import Content from "./components/content/Content";
 import Drawer from "./components/drawer/Drawer";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {cartAPI, contentAPI, favoriteAPI} from "./dall/api";
 import {Route, Routes} from "react-router-dom";
 import Favorite from "./components/favorite/Favorite";
+import AppContext from "./dall/context";
 
 function App(props) {
 
+
     let arrayForSkeleton = [
-        {name: ''},{name: ''},{name: ''},{name: ''},{name: ''},{name: ''},{name: ''},{name: ''}
+        {name: ''}, {name: ''}, {name: ''}, {name: ''}, {name: ''}, {name: ''}, {name: ''}, {name: ''}
     ]
     const [items, setItems] = useState(arrayForSkeleton)
     const [cartItems, setCartItems] = useState([])
@@ -62,28 +64,30 @@ function App(props) {
     }
 
     return (
-        <div className={classes.wrapper}>
-            <div>
-                {cartOpened ? <Drawer cartItems={cartItems}
-                                      onClose={() => setCartOpened(false)}
-                                      deleteProductFromCart={deleteProductFromCart}/> : null}
+        <AppContext.Provider value={{cartItems, items, favorites}}>
+            <div className={classes.wrapper}>
+                <div>
+                    {cartOpened ? <Drawer cartItems={cartItems}
+                                          onClose={() => setCartOpened(false)}
+                                          deleteProductFromCart={deleteProductFromCart}/> : null}
+                </div>
+                <div>
+                    <Header onClickCart={() => setCartOpened(true)}/>
+                </div>
+                <Routes>
+                    <Route path={'/'} element={<Content setItems={setItems} items={items}
+                                                        setCartItems={setCartItems}
+                                                        cartItems={cartItems}
+                                                        setFavorites={setFavorites}
+                                                        onAddToCart={onAddToCart}
+                                                        onAddToFavorite={onAddToFavorite}
+                                                        isLoading={isLoading}
+                    />}/>
+                    <Route path={'/favorites'}
+                           element={<Favorite onAddToFavorite={onAddToFavorite}/>}/>
+                </Routes>
             </div>
-            <div>
-                <Header onClickCart={() => setCartOpened(true)}/>
-            </div>
-            <Routes>
-                <Route path={'/'} element={<Content setItems={setItems} items={items}
-                                                    setCartItems={setCartItems}
-                                                    cartItems={cartItems}
-                                                    setFavorites={setFavorites}
-                                                    onAddToCart={onAddToCart}
-                                                    onAddToFavorite={onAddToFavorite}
-                                                    isLoading={isLoading}
-                />}/>
-                <Route path={'/favorites'}
-                       element={<Favorite favorites={favorites} onAddToFavorite={onAddToFavorite}/>}/>
-            </Routes>
-        </div>
+        </AppContext.Provider>
     );
 }
 
