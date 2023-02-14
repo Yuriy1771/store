@@ -13,8 +13,10 @@ function Content(props) {
         id={c.id} onAddToCart={props.onAddToCart}
         onAddToFavorite={props.onAddToFavorite}
         isAdded={props.cartItems.some((item) => item.id === c.id)}
+        isFavorited={props.favorites.some((item) => item.id === c.id)}
         isLoading={props.isLoading}
     />)
+
 
     const onChangeSearchInput = (e) => {
         let text = e.target.value

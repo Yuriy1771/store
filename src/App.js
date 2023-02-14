@@ -82,6 +82,7 @@ function App(props) {
                                                         onAddToCart={onAddToCart}
                                                         onAddToFavorite={onAddToFavorite}
                                                         isLoading={isLoading}
+                                                        favorites={favorites}
                     />}/>
                     <Route path={'/favorites'}
                            element={<Favorite onAddToFavorite={onAddToFavorite}/>}/>
