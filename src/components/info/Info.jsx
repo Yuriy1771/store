@@ -1,13 +1,13 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import classes from "../drawer/drawer.module.scss";
 import AppContext from "../../dall/context";
 
 function Info(props) {
 
-    const {setCartOpened} = useContext(AppContext)
+    const {setCartOpened,setCartItems} = useContext(AppContext)
+
 
     return (
-        <div>
             <div className={classes.cartEmpty}>
                 <img src={props.img}
                      className={classes.cartEmptyImg} alt="empty cart"/>
@@ -18,7 +18,6 @@ function Info(props) {
                                   alt="arrow"/>
                 </button>
             </div>
-        </div>
     )
 }
 

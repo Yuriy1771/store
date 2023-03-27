@@ -65,7 +65,7 @@ function App(props) {
 
 
     return (
-        <AppContext.Provider value={{cartItems, items, favorites, setCartOpened}}>
+        <AppContext.Provider value={{cartItems, items, favorites, setCartOpened, setCartItems}}>
             <div className={classes.wrapper}>
                 <div>
                     {cartOpened ? <Drawer cartItems={cartItems}
