@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import classes from "./content.module.scss";
 import Card from "../card/Card";
+import AppContext from "../../dall/context";
 
 function Content(props) {
-
     const [searchValue, setSearchValue] = useState('')
 
     let tShirtCards = props.items.filter(c => c.name.toLowerCase().includes(searchValue.toLowerCase())).map(c => <Card
@@ -12,8 +12,8 @@ function Content(props) {
         setFavorites={props.setFavorites} items={c}
         id={c.id} onAddToCart={props.onAddToCart}
         onAddToFavorite={props.onAddToFavorite}
-        isAdded={props.cartItems.some((item) => item.id === c.id)}
-        isFavorited={props.favorites.some((item) => item.id === c.id)}
+
+        // isFavorited={props.favorites.some((item) => item.id === c.id)}
         isLoading={props.isLoading}
     />)
 

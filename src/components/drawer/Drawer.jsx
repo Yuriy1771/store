@@ -1,4 +1,5 @@
 import classes from "./drawer.module.scss";
+import Info from "../info/Info";
 
 function Drawer(props) {
 
@@ -45,16 +46,7 @@ function Drawer(props) {
                             </div>
                         </div>
                         :
-                        <div className={classes.cartEmpty}>
-                            <img src='https://cdn-icons-png.flaticon.com/512/1170/1170576.png'
-                                 className={classes.cartEmptyImg} alt="empty cart"/>
-                            <h2>Cart empty</h2>
-                            <p>Add at least one t-shirt to place an order</p>
-                            <button className={classes.greenBtn} onClick={props.onClose}>
-                                Come back<img src="https://cdn-icons-png.flaticon.com/512/3183/3183354.png"
-                                              alt="arrow"/>
-                            </button>
-                        </div>
+                        <Info title={'Cart empty'} description={'Add at least one t-shirt to place an order'} img={'https://cdn-icons-png.flaticon.com/512/1170/1170576.png'}/>
                 }
             </div>
         </div>

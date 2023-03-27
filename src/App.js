@@ -63,8 +63,9 @@ function App(props) {
         }
     }
 
+
     return (
-        <AppContext.Provider value={{cartItems, items, favorites}}>
+        <AppContext.Provider value={{cartItems, items, favorites, setCartOpened}}>
             <div className={classes.wrapper}>
                 <div>
                     {cartOpened ? <Drawer cartItems={cartItems}
@@ -82,7 +83,6 @@ function App(props) {
                                                         onAddToCart={onAddToCart}
                                                         onAddToFavorite={onAddToFavorite}
                                                         isLoading={isLoading}
-                                                        favorites={favorites}
                     />}/>
                     <Route path={'/favorites'}
                            element={<Favorite onAddToFavorite={onAddToFavorite}/>}/>

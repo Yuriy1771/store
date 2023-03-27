@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import classes from "./card.module.scss";
 import ContentLoader from "react-content-loader"
 import {cartAPI, favoriteAPI} from "../../dall/api";
